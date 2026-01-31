@@ -1,4 +1,4 @@
-# Asteroids game project from boot.dev. Ideas for extending below
+## Asteroids game project from boot.dev. Ideas for extending below
 
 - Add a scoring system
 - Implement multiple lives and respawning
@@ -13,6 +13,9 @@
 - Add a speed power-up
 - Add bombs that can be dropped
 
-# Running
+## Usage
+Run with:
+```
 python3 main.py
+```
 
