@@ -16,28 +16,41 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
+
+    # Create Object groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
 
+    #Player
     Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    # Asteroid
     Asteroid.containers = (asteroids, updatable, drawable)
 
+    # Asteroid Field (handles spawning of asteroids)
     AsteroidField.containers = updatable
     asteroid_field = AsteroidField()
 
+    # Shot
     Shot.containers = (shots, drawable, updatable)
 
+    # Main Game Loop
     while True:
         log_state()
+
+        # Handle window close
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+
         screen.fill("black")
         updatable.update(dt)
+
+        # Collision checks
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
@@ -48,9 +61,14 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+
+        # Draw game entities
         for entity in drawable:
             entity.draw(screen)
+
         pygame.display.flip()
+
+        # dt is the time delta (used to separate physics from frame rate)
         dt = clock.tick(60) / 1000
 
 

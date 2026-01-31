@@ -18,7 +18,9 @@ class Asteroid(CircleShape):
     def split(self):
         self.kill()
         if self.radius <= ASTEROID_MIN_RADIUS:
+            # Asteroid is too small to split
             return
+        # Create 2 new smaller asteroids
         log_event("asteroid_split")
         angle = random.uniform(20, 50)
         new_vector1 = self.velocity.rotate(angle)
